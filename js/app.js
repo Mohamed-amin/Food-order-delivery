@@ -61,122 +61,6 @@ function App(){
         }
     }
 
-    this.Delivery = function() {
-        App.Delivery.total = 0;
-        App.Delivery.menu = new this.Menu();
-        App.Delivery.customersList = new this.CustomersList();
-        App.Delivery.orderList = {};
-        App.Delivery.Order = new this.Order();
-        App.Delivery.render = new this.Render() 
-        App.Delivery.setTotal = function (t) {
-            this.total = t;
-        };
-        App.Delivery.getTotal = function () {
-            return this.total;
-        };
-        App.Delivery.upateTotal = function () {
-            $(".total").text(this.getTotal()+" L.E.");
-        }
-        
-        
-        App.Delivery.addCustomerOrder = function (customerId, menuItemId, qty) {
-                this.orderList[customerId] = { 'total' : 0 };
-                // console.log(this)
-                App.CustomersList.ordered(customerId);
-                this.addOrderListMenuItem(customerId, menuItemId, qty); 
-        };
-        App.Delivery.addOrderListMenuItem = function (customerId, menuItemId, qty) {
-            var customerName = App.CustomersList.getCustomerName(customerId),
-                menuItemName = App.Menu.getItemName(menuItemId),
-                menuItemCost = App.Menu.getItemCost(menuItemId);
-                this.orderList[customerId][menuItemId] = { 
-                    id : menuItemId,
-                    qty : qty,
-                    price : menuItemCost,
-                    sumTotal : function () {
-                        return this['qty']*this['price'];
-                    }
-                };
-                this.orderList[customerId].total += menuItemCost*qty;
-                this.total += menuItemCost*qty;
-                App.Order.addNew(this.orderList, customerId, menuItemId, qty);        
-        };
-        App.Delivery.updateOrderListMenuItemQty = function (customerId, menuItemId, qty) {
-            var menuItemCost = App.Menu.getItemCost(menuItemId),
-                currentQty = this.orderList[customerId][menuItemId]["qty"],
-                newQty = parseInt(currentQty) + parseInt(qty);
-            this.orderList[customerId][menuItemId]["qty"] = newQty;
-
-            $(".mealRow[data-id="+menuItemId+"][data-personid='"+customerId+"']").find(".mealQty input").val(newQty);
-            $(".mealRow[data-id="+menuItemId+"][data-personid='"+customerId+"']").find(".subtotal").text(this.orderList[customerId][menuItemId].sumTotal());
-            
-            operator = "+";
-            this.updateCustomerTotal(customerId, menuItemId, qty, operator);
-            this.updateDeliveryTotal(customerId, menuItemId, qty, operator);
-        };
-        App.Delivery.updateCustomerTotal = function(customerId, menuItemId, qty, operator){
-            var menuItemCost = App.Menu.getItemCost(menuItemId);
-               console.log("updateCustomerTotal" + qty)
-            if (operator == "+") {
-                this.orderList[customerId].total += menuItemCost*qty;
-            } else{
-                this.orderList[customerId].total -= menuItemCost*qty;
-            };
-            $("#subtotal_" + customerId + "").text(this.orderList[customerId].total);
-        };
-        App.Delivery.updateDeliveryTotal = function(customerId, menuItemId, qty, operator){
-            var menuItemCost = App.Menu.getItemCost(menuItemId);
-            // console.log(this.total);
-            if (operator == "+") {
-                this.total += menuItemCost*qty;
-            } else{
-                this.total -= menuItemCost*qty;
-            };
-           
-
-        };
-        App.Delivery.updateInlineQty = function(customerId, menuItemId, qty){
-            var menuItemCost = this.menu.getItemCost(menuItemId),
-                oldQty = this.orderList[customerId][menuItemId]["qty"];
-
-            this.orderList[customerId][menuItemId]["qty"] = qty;
-            newQty = qty;
-            console.log("oldQty"+oldQty)
-            console.log("menuItemId"+menuItemId)
-            console.log("qty"+qty)
-            console.log(this.orderList[customerId][menuItemId]["qty"])
-            $(".mealRow[data-id="+menuItemId+"][data-personid='"+customerId+"']").find(".mealQty input").val(newQty);
-            $(".mealRow[data-id="+menuItemId+"][data-personid='"+customerId+"']").find(".subtotal").text(this.orderList[customerId][menuItemId].sumTotal());
-            
-            if (oldQty < newQty) {
-                operator = "+";
-            } else{
-                operator = "-";
-            };
-            
-            this.updateCustomerTotal(customerId, menuItemId, qty, operator);
-            this.updateDeliveryTotal(customerId, menuItemId, qty, operator);
-        };
-        App.Delivery.RemoveCustomerOrder = function(customerId, menuItemId, qty){
-            var customerName = this.customersList.getCustomerName(customerId),        
-                menuItemCost = this.menu.getItemCost(menuItemId);
-            this.total -= this.orderList[customerId].total;
-            delete this.orderList[customerId] ;
-            $(".table."+customerName+" ").remove();
-
-        };
-        App.Delivery.RemoveOrderListMenuItem = function(customerId, menuItemId, qty){
-            var customerName = this.customersList.getCustomerName(customerId),        
-                menuItemCost = this.menu.getItemCost(menuItemId);
-
-            operator = "-";
-            this.updateCustomerTotal(customerId, menuItemId, qty, operator);
-            this.updateDeliveryTotal(customerId, menuItemId, qty, operator);
-
-            $(".mealRow[data-id="+menuItemId+"][data-personid='"+customerId+"']").remove();
-            delete this.orderList[customerId][menuItemId] ;
-        };
-    }
     this.Order = function(){
         App.Order.orderList = { total : 0};
         App.Order.setTotals = function(customerId, menuItemId, qty){
@@ -184,10 +68,11 @@ function App(){
             for (i in App.Order.orderList[customerId]) {
                 if(App.Order.orderList[customerId][i].hasOwnProperty("sumTotal")){
                     total += App.Order.orderList[customerId][i].sumTotal();
+                    App.Order.orderList[customerId].total =+ total;
+
                 }
             }
-            App.Order.orderList[customerId].total =+ total;
-            console.log(App.Order.orderList[customerId].total  +"   Customer total after")
+            // console.log(App.Order.orderList[customerId].total  +"   Customer total after")
 
             var totalObj = 0;
             for (i in App.Order.orderList) {
@@ -270,13 +155,15 @@ function App(){
         };
         App.Order.RemoveCustomer = function(customerId, menuItemId, qty){
             App.Render.RemoveTable(customerId);
-            App.Order.setTotals(customerId, menuItemId, qty);            
             delete this.orderList[customerId];  
+            App.Order.setTotals(customerId, menuItemId, qty);            
+
         };
         App.Order.RemoveOrder = function(customerId, menuItemId, qty){
             App.Render.RemoveRow(customerId, menuItemId); 
-            App.Order.setTotals(customerId, menuItemId, qty);
             delete this.orderList[customerId][menuItemId] ;
+            App.Order.setTotals(customerId, menuItemId, qty);
+
             var count = 0;
             var i;
             for (i in this.orderList[customerId]) {
@@ -359,7 +246,6 @@ function App(){
     }
     this.Menu();
     this.CustomersList();
-    this.Delivery();
     this.Order();
     this.Render();
 
