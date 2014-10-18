@@ -85,6 +85,26 @@ function App(){
             App.Order.orderList.total = totalObj;
             console.log(App.Order.orderList)
         }
+        App.Order.sumOrder = function (){
+                var totalObj = 0;
+                var id;
+
+                for (i in App.Order.orderList) {
+                    if(App.Order.orderList[i].hasOwnProperty("id")){
+                        totalObj = App.Order.orderList[i].total;
+                        Id = App.Order.orderList[i].total;
+                        App.Render.RenderAll(totalObj,Id);
+                    }
+                }
+
+                // for (i in App.Order.orderList[customerId]) {
+                //     if(App.Order.orderList[customerId][i].hasOwnProperty("sumTotal")){
+                //         total += App.Order.orderList[customerId][i].sumTotal();
+                //         App.Order.orderList[customerId].total =+ total;
+
+                //     }
+                // } 
+        }
         App.Order.addNew = function(customerId, menuItemId, qty){
             // console.log(App.Order.orderList)
                 if(!App.Order.orderList.hasOwnProperty(customerId)){                
@@ -201,7 +221,8 @@ function App(){
             $(".total").text(orderTotal +" L.E");
             $("#subtotal_" + customerId + "").text(customerTotal +" L.E");
         };
-        App.Render.RenderAll = function(orderList, customerId, menuItemId, qty){            
+        App.Render.RenderAll = function(orderList, customerId, menuItemId, qty){         
+                
         };
         App.Render.newTable = function (orderList, customerId, menuItemId, qty){
             var customerName = orderList[customerId].Name,
