@@ -79,7 +79,7 @@
 	<a href="#" class="btn btn-success SumOrder"  data-toggle="modal" data-target="#myModal">Order Summury</a>
 
 </div>
-<div class="modal fade">
+<div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,7 +87,29 @@
         <h4 class="modal-title">Modal title</h4>
       </div>
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+      	<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+				  <li class="active"><a href="#charges" role="tab" data-toggle="tab">Charges</a></li>
+				  <li><a href="#order" role="tab" data-toggle="tab">Order</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+				  <div class="tab-pane active" id="charges">
+				  	<table class="table summery">
+			        	<thead>
+			        		<th>Name</th>
+			        		<th>Charge</th>
+			        	</thead>
+			        	<tbody>
+			        		
+			        	</tbody>
+			        </table>
+				  </div>
+				  <div class="tab-pane" id="order">...</div>
+				  
+				</div>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

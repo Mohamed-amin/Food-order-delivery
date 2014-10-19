@@ -87,13 +87,14 @@ function App(){
         }
         App.Order.sumOrder = function (){
                 var totalObj = 0;
-                var id;
+                var name;
 
                 for (i in App.Order.orderList) {
-                    if(App.Order.orderList[i].hasOwnProperty("id")){
+                    if(App.Order.orderList[i].hasOwnProperty("Name")){
                         totalObj = App.Order.orderList[i].total;
-                        Id = App.Order.orderList[i].total;
-                        App.Render.RenderAll(totalObj,Id);
+                        name = App.Order.orderList[i].Name;
+                        App.Render.RenderAll(totalObj,name);
+
                     }
                 }
 
@@ -221,8 +222,11 @@ function App(){
             $(".total").text(orderTotal +" L.E");
             $("#subtotal_" + customerId + "").text(customerTotal +" L.E");
         };
-        App.Render.RenderAll = function(orderList, customerId, menuItemId, qty){         
-                
+        App.Render.RenderAll = function(total, name){  
+            var summery = '';
+            summery += "<tr><td>"+name+"</td><td>"+total+" L.E</td></tr>"     
+            console.log(summery);
+            $(".summery tbody").append(summery);  
         };
         App.Render.newTable = function (orderList, customerId, menuItemId, qty){
             var customerName = orderList[customerId].Name,
@@ -305,4 +309,13 @@ $( document ).ready(function() {
 
             app.Order.addNew(customerId, menuItemId, newQty);
     });  
+    // $('body').on('click', '.SumOrder', function(){
+    // }); 
+    $('#myModal').on('shown.bs.modal', function (e) {
+            app.Order.sumOrder();
+    })
+    $('#myModal').on('hidden.bs.modal', function (e) {
+            $(".summery tbody").html('');  
+    })
+    
 });
