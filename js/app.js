@@ -85,26 +85,22 @@ function App(){
             App.Order.orderList.total = totalObj;
             console.log(App.Order.orderList)
         }
-        App.Order.sumOrder = function (){
-                var totalObj = 0;
-                var name;
+        App.Order.sumOrder = function (sharedExpensies){
+                var totalObj = 0,
+                    name,
+                    customersCount = 0;
 
                 for (i in App.Order.orderList) {
                     if(App.Order.orderList[i].hasOwnProperty("Name")){
+                        customersCount ++;
                         totalObj = App.Order.orderList[i].total;
                         name = App.Order.orderList[i].Name;
-                        App.Render.RenderAll(totalObj,name);
+                        App.Render.RenderAll(totalObj,name,sharedExpensies);
 
                     }
                 }
-
-                // for (i in App.Order.orderList[customerId]) {
-                //     if(App.Order.orderList[customerId][i].hasOwnProperty("sumTotal")){
-                //         total += App.Order.orderList[customerId][i].sumTotal();
-                //         App.Order.orderList[customerId].total =+ total;
-
-                //     }
-                // } 
+                App.Order.orderList.customersCount = customersCount;
+                console.log(App.Order.orderList)
         }
         App.Order.addNew = function(customerId, menuItemId, qty){
             // console.log(App.Order.orderList)
@@ -197,6 +193,11 @@ function App(){
                 App.Order.RemoveCustomer(customerId);
             };
         };
+        App.Order.roundMe = function(n, sig) {
+            if (n === 0) return 0;
+            var mult = Math.pow(10, sig - Math.floor(Math.log(n < 0 ? -n: n) / Math.LN10) - 1);
+            return Math.round(n * mult) / mult;
+        }
 
     }
     this.Render = function() {
@@ -222,11 +223,20 @@ function App(){
             $(".total").text(orderTotal +" L.E");
             $("#subtotal_" + customerId + "").text(customerTotal +" L.E");
         };
-        App.Render.RenderAll = function(total, name){  
-            var summery = '';
-            summery += "<tr><td>"+name+"</td><td>"+total+" L.E</td></tr>"     
-            console.log(summery);
-            $(".summery tbody").append(summery);  
+        App.Render.RenderAll = function(total, name, sharedExpensies){  
+           
+            if (sharedExpensies == undefined) {
+                sharedExpensies = 0;
+            } 
+            var summery = '',
+                stotal = parseFloat(total) + parseFloat(sharedExpensies) ;
+            summery += "<tr><td>"+name+"</td><td>"+App.Order.roundMe(stotal,2)+" L.E</td></tr>";
+            tbody = "<tbody></tbody>" 
+            // if (sharedExpensies !== undefined ){
+            //    alert("sss")
+            // }
+            $(".summery tbody").append(summery)
+            // $(".summery tbody").append(summery);  
         };
         App.Render.newTable = function (orderList, customerId, menuItemId, qty){
             var customerName = orderList[customerId].Name,
@@ -309,6 +319,16 @@ $( document ).ready(function() {
 
             app.Order.addNew(customerId, menuItemId, newQty);
     });  
+    $('#myModal').on('change', '.bill', function(){
+        var bill = $(this).val(),
+            customersCount = app.Order.orderList["customersCount"],
+            orignalTotal = app.Order.orderList["total"],
+            sharedExpensies =  (bill - orignalTotal) / customersCount;            
+            console.log(sharedExpensies)
+        $(".summery tbody").html('');  
+        app.Order.sumOrder(sharedExpensies);
+
+    })
     // $('body').on('click', '.SumOrder', function(){
     // }); 
     $('#myModal').on('shown.bs.modal', function (e) {
