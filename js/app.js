@@ -12,12 +12,12 @@ function App(){
             return this.items = {
                 1: {type: "per-item", price: 1.5, name: "Fool sandwich"},
                 2: {type: "per-item", price: 1.5, name: "flafel sandwich"},
-                6: {type: "per-item", price: 2.5, name: "potato sandwich"},
-                8: {type: "per-item", price: 5.5, name: "Grilled Cheese sandwich"},
-                9: {type: "per-item", price: 3.5, name: "Bitngan sandwich"},
-                12: {type: "per-item", price: 16.5, name: "Chicken Shawerma sandwich"},
-                35: {type: "per-item", price: 16.5, name: "Meat Shawerma sandwich"},
-                36: {type: "per-item", price: 3.5, name: "Potato Mio sandwich"},
+                3: {type: "per-item", price: 2.5, name: "potato sandwich"},
+                4: {type: "per-item", price: 5.5, name: "Grilled Cheese sandwich"},
+                5: {type: "per-item", price: 3.5, name: "Bitngan sandwich"},
+                6: {type: "per-item", price: 16.5, name: "Chicken Shawerma sandwich"},
+                7: {type: "per-item", price: 16.5, name: "Meat Shawerma sandwich"},
+                8: {type: "per-item", price: 3.5, name: "Potato Mio sandwich"},
             };
         };        
         App.Menu.getItemName = function (id) {
@@ -85,6 +85,30 @@ function App(){
             App.Order.orderList.total = totalObj;
             console.log(App.Order.orderList)
         }
+        // App.Order.sumMeals = function (sharedExpensies){
+        //         var totalObj = 0,
+        //             name,
+        //             customersCount = 0;
+
+        //         for (i in App.Order.orderList) {
+        //             if(App.Order.orderList[i].hasOwnProperty("Name")){
+        //                 for (j in App.Order.orderList[i]) {
+        //                         if (true) {};
+        //                         App.Order.orderList[i][j].menuItemName;
+        //                          App.Order.orderList[i].Name;
+        //                         App.Render.RenderMeals(totalObj,name);
+                               
+        //                 }
+        //                 customersCount ++;
+        //                 totalObj = App.Order.orderList[i].total;
+        //                 name = App.Order.orderList[i].Name;
+        //                 App.Render.RenderMeals(totalObj,name);
+                       
+        //             }
+        //         }
+        //         App.Order.orderList.customersCount = customersCount;
+        //         console.log(App.Order.orderList)
+        // }
         App.Order.sumOrder = function (sharedExpensies){
                 var totalObj = 0,
                     name,
@@ -224,6 +248,21 @@ function App(){
             $("#subtotal_" + customerId + "").text(customerTotal +" L.E");
         };
         App.Render.RenderAll = function(total, name, sharedExpensies){  
+           
+            if (sharedExpensies == undefined) {
+                sharedExpensies = 0;
+            } 
+            var summery = '',
+                stotal = parseFloat(total) + parseFloat(sharedExpensies) ;
+            summery += "<tr><td>"+name+"</td><td>"+App.Order.roundMe(stotal,2)+" L.E</td></tr>";
+            tbody = "<tbody></tbody>" 
+            // if (sharedExpensies !== undefined ){
+            //    alert("sss")
+            // }
+            $(".summery tbody").append(summery)
+            // $(".summery tbody").append(summery);  
+        };
+        App.Render.RenderMeals = function(total, name){  
            
             if (sharedExpensies == undefined) {
                 sharedExpensies = 0;
