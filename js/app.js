@@ -9,16 +9,7 @@ function App(){
     this.Menu = function() {
         App.Menu.items = {};
         App.Menu.getItems = function () {
-            return this.items = {
-                1: {type: "per-item", price: 1.5, name: "Fool sandwich"},
-                2: {type: "per-item", price: 1.5, name: "flafel sandwich"},
-                3: {type: "per-item", price: 2.5, name: "potato sandwich"},
-                4: {type: "per-item", price: 5.5, name: "Grilled Cheese sandwich"},
-                5: {type: "per-item", price: 3.5, name: "Bitngan sandwich"},
-                6: {type: "per-item", price: 16.5, name: "Chicken Shawerma sandwich"},
-                7: {type: "per-item", price: 16.5, name: "Meat Shawerma sandwich"},
-                8: {type: "per-item", price: 3.5, name: "Potato Mio sandwich"},
-            };
+            return this.items = gadMenu;
         };        
         App.Menu.getItemName = function (id) {
             return this.items[id].name;
@@ -33,10 +24,38 @@ function App(){
         App.CustomersList.getCustomers = function () {
             return this.customers = {
                 1: {name: "Amin", ordered: false, total: 0},
-                2: {name: "Enas", ordered: false, total: 0},
-                6: {name: "Yomna", ordered: false, total: 0},
-                8: {name: "Ali", ordered: false, total: 0},
-                9: {name: "Moustfa", ordered: false, total: 0},
+                2: {name: "Haider", ordered: false, total: 0},
+                3: {name: "shehata", ordered: false, total: 0},
+                4: {name: "Wael", ordered: false, total: 0},
+                5: {name: "Hamdy", ordered: false, total: 0},
+                6: {name: "Moustafa", ordered: false, total: 0},
+                7: {name: "Omar", ordered: false, total: 0},
+                8: {name: "Sanad", ordered: false, total: 0},
+                9: {name: "Ali", ordered: false, total: 0},
+                10: {name: "Mena", ordered: false, total: 0},
+                11: {name: "Abo El Noor", ordered: false, total: 0},
+                12: {name: "Said", ordered: false, total: 0},
+                13: {name: "Yasmine", ordered: false, total: 0},
+                14: {name: "Basayel", ordered: false, total: 0},
+                15: {name: "Fawzia", ordered: false, total: 0},
+                16: {name: "Hager", ordered: false, total: 0},
+                17: {name: "Yomna", ordered: false, total: 0},
+                18: {name: "Mai Wanas", ordered: false, total: 0},
+                19: {name: "Mai Moustfa", ordered: false, total: 0},
+                20: {name: "Mai El Naggar", ordered: false, total: 0},
+                21: {name: "Mohamed Tarek", ordered: false, total: 0},
+                23: {name: "Fatma", ordered: false, total: 0},
+                24: {name: "Zinab", ordered: false, total: 0},
+                25: {name: "Khazendar", ordered: false, total: 0},
+                26: {name: "Nada", ordered: false, total: 0},
+                27: {name: "Sara Haridy", ordered: false, total: 0},
+                28: {name: "Tamer", ordered: false, total: 0},
+                29: {name: "Alaa", ordered: false, total: 0},
+                30: {name: "Shiamaa", ordered: false, total: 0},
+                31: {name: "Sara Salah", ordered: false, total: 0},
+                32: {name: "Youssef", ordered: false, total: 0},
+                33: {name: "Hatem", ordered: false, total: 0},
+
             }
         };
         App.CustomersList.draw = function () {
@@ -254,7 +273,7 @@ function App(){
             } 
             var summery = '',
                 stotal = parseFloat(total) + parseFloat(sharedExpensies) ;
-            summery += "<tr><td>"+name+"</td><td>"+App.Order.roundMe(stotal,2)+" L.E</td></tr>";
+            summery += "<tr><td>"+name+"</td><td>"+App.Order.roundMe(stotal,3)+" L.E</td></tr>";
             tbody = "<tbody></tbody>" 
             // if (sharedExpensies !== undefined ){
             //    alert("sss")
@@ -376,5 +395,7 @@ $( document ).ready(function() {
     $('#myModal').on('hidden.bs.modal', function (e) {
             $(".summery tbody").html('');  
     })
-    
+    $("#Menu").chosen()
+    $("#persons").chosen()
+
 });
