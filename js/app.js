@@ -24,7 +24,7 @@ function App(){
     this.CustomersList = function() {
         App.CustomersList.customers = {};
         App.CustomersList.getCustomers = function () {
-<<<<<<< HEAD
+// <<<<<<< HEAD
             return this.customers = {
                 1: {name: "Amin", ordered: false, total: 0},
                 2: {name: "Haider", ordered: false, total: 0},
@@ -60,9 +60,9 @@ function App(){
                 33: {name: "Hatem", ordered: false, total: 0},
 
             }
-=======
-            return this.customers = persons;
->>>>>>> 213bafc44a7a76fc1eb7f7b1adc219c401cb821f
+// =======
+            // return this.customers = persons;
+// >>>>>>> 213bafc44a7a76fc1eb7f7b1adc219c401cb821f
         };
         App.CustomersList.draw = function () {
            var customers = this.getCustomers();
