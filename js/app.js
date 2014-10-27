@@ -8,6 +8,8 @@ function App(){
 
     this.Menu = function() {
         App.Menu.items = {};
+        App.Menu.items.Meals = {};
+
         App.Menu.getItems = function () {
             return this.items = gadMenu;
         };        
@@ -22,6 +24,7 @@ function App(){
     this.CustomersList = function() {
         App.CustomersList.customers = {};
         App.CustomersList.getCustomers = function () {
+<<<<<<< HEAD
             return this.customers = {
                 1: {name: "Amin", ordered: false, total: 0},
                 2: {name: "Haider", ordered: false, total: 0},
@@ -57,6 +60,9 @@ function App(){
                 33: {name: "Hatem", ordered: false, total: 0},
 
             }
+=======
+            return this.customers = persons;
+>>>>>>> 213bafc44a7a76fc1eb7f7b1adc219c401cb821f
         };
         App.CustomersList.draw = function () {
            var customers = this.getCustomers();
@@ -82,6 +88,7 @@ function App(){
 
     this.Order = function(){
         App.Order.orderList = { total : 0};
+        App.Order.Meals = {};
         App.Order.setTotals = function(customerId, menuItemId, qty){
             var total = 0;
             for (i in App.Order.orderList[customerId]) {
@@ -99,35 +106,23 @@ function App(){
                     totalObj += App.Order.orderList[i].total;
                 }
             }
-            console.log(totalObj + "   totalobj")
+            // console.log(totalObj + "   totalobj")
             App.Render.RenderTotals(totalObj, total, customerId);
             App.Order.orderList.total = totalObj;
-            console.log(App.Order.orderList)
+            // console.log(App.Order.orderList)
         }
-        // App.Order.sumMeals = function (sharedExpensies){
-        //         var totalObj = 0,
-        //             name,
-        //             customersCount = 0;
-
-        //         for (i in App.Order.orderList) {
-        //             if(App.Order.orderList[i].hasOwnProperty("Name")){
-        //                 for (j in App.Order.orderList[i]) {
-        //                         if (true) {};
-        //                         App.Order.orderList[i][j].menuItemName;
-        //                          App.Order.orderList[i].Name;
-        //                         App.Render.RenderMeals(totalObj,name);
-                               
-        //                 }
-        //                 customersCount ++;
-        //                 totalObj = App.Order.orderList[i].total;
-        //                 name = App.Order.orderList[i].Name;
-        //                 App.Render.RenderMeals(totalObj,name);
-                       
-        //             }
-        //         }
-        //         App.Order.orderList.customersCount = customersCount;
-        //         console.log(App.Order.orderList)
-        // }
+        App.Order.sumMeals = function (){
+                var qty = 0,
+                    name;
+                // App.Order.Meals[menuItemId]
+                for (i in App.Order.Meals) {
+                        name = App.Order.Meals[i]["name"];
+                        qty = App.Order.Meals[i]["qty"];
+                        App.Render.RenderMeals(qty, name)
+                    }
+                
+                console.log(App.Order.Meals)
+        }
         App.Order.sumOrder = function (sharedExpensies){
                 var totalObj = 0,
                     name,
@@ -147,6 +142,7 @@ function App(){
         }
         App.Order.addNew = function(customerId, menuItemId, qty){
             // console.log(App.Order.orderList)
+                qty = parseInt(qty)
                 if(!App.Order.orderList.hasOwnProperty(customerId)){                
                     App.Order.createNewCustomer(customerId, menuItemId, qty);
                 } else {
@@ -182,12 +178,20 @@ function App(){
                     sumTotal : function () {
                         var total = this['qty']*this['price']
                         return total;
-                        // return this.orderList[customerId]["total"] += total;
                     }
                 };
-                // this.orderList[customerId].total += menuItemCost*qty;
-                // this.total += menuItemCost*qty;
-                // console.log(App.Order.orderList)
+                if (!App.Order.Meals.hasOwnProperty(menuItemId)) {
+                    App.Order.Meals[menuItemId] = {
+                        name : menuItemName,
+                        qty : qty
+                     }
+                } 
+                else{
+                    App.Order.Meals[menuItemId]["qty"] += qty
+
+                };
+                
+                console.log(App.Order.Meals)
                 App.Order.setTotals(customerId, menuItemId, qty);
                 var orderListobj = App.Order.orderList;
                 App.Render.newRow(orderListobj, customerId, menuItemId, qty)
@@ -199,7 +203,10 @@ function App(){
             App.Order.orderList[customerId][menuItemId]["qty"] = newQty;
             // this.orderList[customerId][menuItemId].sumTotal();
             // console.log(customerId +"  " + menuItemId)
+            App.Order.Meals[menuItemId]["qty"] = newQty;
             App.Order.setTotals(customerId, menuItemId, qty);
+            console.log(App.Order.Meals)
+
             // console.log(this.orderList[customerId][menuItemId].sumTotal())
             var orderListobj = App.Order.orderList;
             App.Render.UpdateRow(orderListobj, customerId, menuItemId, qty)
@@ -222,6 +229,8 @@ function App(){
         App.Order.RemoveOrder = function(customerId, menuItemId, qty){
             App.Render.RemoveRow(customerId, menuItemId); 
             delete this.orderList[customerId][menuItemId] ;
+            App.Menu.items.Meals[menuItemId]["qty"] =-qty;
+
             App.Order.setTotals(customerId, menuItemId, qty);
 
             var count = 0;
@@ -267,7 +276,6 @@ function App(){
             $("#subtotal_" + customerId + "").text(customerTotal +" L.E");
         };
         App.Render.RenderAll = function(total, name, sharedExpensies){  
-           
             if (sharedExpensies == undefined) {
                 sharedExpensies = 0;
             } 
@@ -275,26 +283,12 @@ function App(){
                 stotal = parseFloat(total) + parseFloat(sharedExpensies) ;
             summery += "<tr><td>"+name+"</td><td>"+App.Order.roundMe(stotal,3)+" L.E</td></tr>";
             tbody = "<tbody></tbody>" 
-            // if (sharedExpensies !== undefined ){
-            //    alert("sss")
-            // }
             $(".summery tbody").append(summery)
-            // $(".summery tbody").append(summery);  
         };
-        App.Render.RenderMeals = function(total, name){  
-           
-            if (sharedExpensies == undefined) {
-                sharedExpensies = 0;
-            } 
-            var summery = '',
-                stotal = parseFloat(total) + parseFloat(sharedExpensies) ;
-            summery += "<tr><td>"+name+"</td><td>"+App.Order.roundMe(stotal,2)+" L.E</td></tr>";
-            tbody = "<tbody></tbody>" 
-            // if (sharedExpensies !== undefined ){
-            //    alert("sss")
-            // }
-            $(".summery tbody").append(summery)
-            // $(".summery tbody").append(summery);  
+        App.Render.RenderMeals = function(qty, name){  
+            var meals = '';
+            meals += "<tr><td>"+name+"</td><td>"+qty+"</td></tr>";
+            $(".charges tbody").append(meals)
         };
         App.Render.newTable = function (orderList, customerId, menuItemId, qty){
             var customerName = orderList[customerId].Name,
@@ -387,13 +381,15 @@ $( document ).ready(function() {
         app.Order.sumOrder(sharedExpensies);
 
     })
-    // $('body').on('click', '.SumOrder', function(){
-    // }); 
+   
     $('#myModal').on('shown.bs.modal', function (e) {
-            app.Order.sumOrder();
+        app.Order.sumOrder();
+        app.Order.sumMeals();
+
     })
     $('#myModal').on('hidden.bs.modal', function (e) {
-            $(".summery tbody").html('');  
+            $(".summery tbody").html(''); 
+            $(".charges tbody").html('');  
     })
     $("#Menu").chosen()
     $("#persons").chosen()
