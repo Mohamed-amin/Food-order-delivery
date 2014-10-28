@@ -1,0 +1,8 @@
+{
+  "name": "Food-Order",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-sass": "^0.8.1"
+  }
+}
