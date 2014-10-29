@@ -3,7 +3,7 @@
  * Copyright 2014 Amin.
  */
 
-
+ 
 function App(){
 
     var App = this;
@@ -338,7 +338,6 @@ function App(){
 }
 
 $( document ).ready(function() {
-
     var app = new App();
     // console.log(app)
     app.Render.drawMenu();
