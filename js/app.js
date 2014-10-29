@@ -3,7 +3,7 @@
  * Copyright 2014 Amin.
  */
 
- 
+
 function App(){
 
     var App = this;
@@ -272,6 +272,7 @@ function App(){
         };
         App.Render.RenderTotals = function (orderTotal, customerTotal, customerId) {
             $(".total").text(orderTotal +" L.E");
+            $(".totalCost").html(orderTotal +" L.E");
             $("#subtotal_" + customerId + "").text(customerTotal +" L.E");
         };
         App.Render.RenderAll = function(total, name, sharedExpensies){  
