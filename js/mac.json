@@ -1,0 +1,10 @@
+var macMenu = {
+    "0": {
+        "name": "Foul bel Salsa",
+        "price": "2.75"
+    },
+    "1": {
+        "name": "Falafel",
+        "price": "1.75"
+    },
+   }

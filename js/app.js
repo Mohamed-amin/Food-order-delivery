@@ -11,9 +11,12 @@ function App(){
     this.Menu = function() {
         App.Menu.items = {};
         App.Menu.items.Meals = {};
-
-        App.Menu.getItems = function () {
-            return this.items = gadMenu;
+        var currentMenu = "";
+        App.Menu.loadItems = function (id) {
+            currentMenu = id;
+        };
+        App.Menu.getItems = function (id) {
+            return this.items = eval(currentMenu);
         };        
         App.Menu.getItemName = function (id) {
             return this.items[id].name;
@@ -146,7 +149,7 @@ function App(){
                     App.Order.createNewCustomer(customerId, menuItemId, qty);
                 } else {
                     if (App.Order.orderList[customerId][menuItemId] !== undefined){
-                        App.Order.updateOrderforCustomer(customerId, menuItemId, qty);
+                        App.Order.updateOrderFforCustomer(customerId, menuItemId, qty);
                     } else {
                         App.Order.createNewOrderforCustomer(customerId, menuItemId, qty);
                     }
@@ -260,6 +263,7 @@ function App(){
 
                 var menuOptions = '';
                 for(id in App.Menu.items){
+
                     menuOptions += '<option id='+id+'>'+ App.Menu.items[id].name +'</option>';
                 }
             $("#Menu").append(menuOptions);
@@ -342,9 +346,10 @@ function App(){
 
 $( document ).ready(function() {
     var app = new App();
-    // console.log(app)
-    app.Render.drawMenu();
+    // app.Render.drawMenu();
     app.Render.drawCustomersList();
+    // console.log(app)
+   
 
     $(".addNewOrder").on('click', function() {
         var $this = $(this),
@@ -395,5 +400,15 @@ $( document ).ready(function() {
     })
     $("#Menu").chosen()
     $("#persons").chosen()
+
+
+    $("#restaurant").on('change',function(){
+        var restaurantId = $(this).find(":selected").attr('id');
+        // alert(restaurantId)
+        app.Menu.loadItems(restaurantId);
+        app.Render.drawMenu();
+        $("#Menu").trigger("chosen:updated");
+    });
+            
 
 });
