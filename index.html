@@ -42,11 +42,21 @@
  			line-height: 40px;
  		}
  		.restaurant{
- 			width: 200px;
+ 			width: 400px;
  			display: inline-block;
+ 			margin-top: 20px;
+ 		}
+ 		label{
+ 			display: block;
  		}
  		select{
  			min-width: 200px;
+ 		}
+ 		.faded{
+ 			opacity: 0.2;
+ 		}
+ 		.collaps{
+ 			transition:all 0.3s;
  		}
  	</style>
 </head>
@@ -58,10 +68,10 @@
 		<table class="table">
 		  <tbody>
 		    <tr>
-		      <td> 
-		      	<label>Select Restaurant :  </label>
+		      <td style="text-align:center;"> 
+		      	<!-- <label>Before you order Select Restaurant :  </label> -->
 		      	<select class="form-control restaurant" id="restaurant">
-		      		<option> -- select --</option>
+		      		<option> -- Before you order Select Restaurant :  --</option>
 		      		<option id="gadMenu"> GAD </option>
 		      		<option id="macMenu"> Macdonalds </option>
 		      		<!-- <option id="cookdoorMenu"> Cook Door </option> -->
@@ -72,7 +82,7 @@
 		  </tbody>
 		</table>
 	</div>
-	<div class="row collaps">
+	<div class="row collaps faded">
 		<table class="table table-striped table-hover ">
 		  <thead>
 		    <tr>
