@@ -149,7 +149,7 @@ function App(){
                     App.Order.createNewCustomer(customerId, menuItemId, qty);
                 } else {
                     if (App.Order.orderList[customerId][menuItemId] !== undefined){
-                        App.Order.updateOrderFforCustomer(customerId, menuItemId, qty);
+                        App.Order.updateOrderforCustomer(customerId, menuItemId, qty);
                     } else {
                         App.Order.createNewOrderforCustomer(customerId, menuItemId, qty);
                     }
@@ -193,7 +193,7 @@ function App(){
 
                 };
                 
-                console.log(App.Order.Meals)
+                // console.log(App.Order.Meals)
                 App.Order.setTotals(customerId, menuItemId, qty);
                 var orderListobj = App.Order.orderList;
                 App.Render.newRow(orderListobj, customerId, menuItemId, qty)
