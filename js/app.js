@@ -228,7 +228,9 @@ function App(){
         App.Order.RemoveOrder = function(customerId, menuItemId, qty){
             App.Render.RemoveRow(customerId, menuItemId); 
             delete this.orderList[customerId][menuItemId] ;
-            App.Menu.items.Meals[menuItemId]["qty"] =-qty;
+            console.log( this.orderList)
+            // App.Menu.items.Meals[menuItemId]["qty"] =-qty;
+            // I didn't know what it does so I commented it :)
 
             App.Order.setTotals(customerId, menuItemId, qty);
 
