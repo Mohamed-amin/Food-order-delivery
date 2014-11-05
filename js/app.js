@@ -347,7 +347,6 @@ function App(){
 $( document ).ready(function() {
  var app;
    
-$('.addNewOrder').prop('disabled', true);
     $(".addNewOrder").on('click', function() {
         var $this = $(this),
             qty = $this.closest("td").find(".qty").val(),
@@ -403,7 +402,7 @@ $('.addNewOrder').prop('disabled', true);
         var restaurantId = $(this).find(":selected").attr('id');
         // alert(restaurantId)
         $(".collaps").removeClass("faded");
-
+        $('.addNewOrder').prop('disabled', false);
         $(".sheet").html("")
         $(".total").html("")
 
