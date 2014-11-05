@@ -1,10 +1,243 @@
 var macMenu = {
     "0": {
-        "name": "Foul bel Salsa",
-        "price": "2.75"
+        "name": "McRoyale Value Meal Medium",
+        "price": "28"
     },
     "1": {
-        "name": "Falafel",
-        "price": "1.75"
+        "name": "McRoyale Value Meal Large ",
+        "price": "30.54"
     },
+    "2": {
+        "name": "Chicken Fillet Value Meal Medium",
+        "price": "26.91"
+    },
+    "3": {
+        "name": "Chicken Fillet Value Meal Large",
+        "price": "29.46"
+    },
+    "4": {
+        "name": "Double Fish O Fillet Value Meal Medium",
+        "price": "23.09"
+    },
+    "5": {
+        "name": "Double Fish O Fillet Value Meal Large",
+        "price": "25.46"
+    },
+    "6": {
+        "name": "Big Mac Large",
+        "price": "29.09"
+    },
+    "7": {
+        "name": "Big Mac Medium ",
+        "price": "29.09"
+    },
+    "8": {
+        "name": "Big Mac Sandwich",
+        "price": "29.09"
+    },
+    "6": {
+        "name": "Big Mac Large",
+        "price": "29.09"
+    },
+    "7": {
+        "name": "Big Mac Medium ",
+        "price": "25.91"
+    },
+    "8": {
+        "name": "Big Mac Sandwich",
+        "price": "18.18"
+    },
+    "9": {
+        "name": "Big Tasty Large",
+        "price": "40.91"
+    },
+    "10": {
+        "name": "Big Tasty Medium ",
+        "price": "37.73"
+    },
+    "11": {
+        "name": "Big Tasty Sandwich",
+        "price": "27.27"
+    },
+    "12": {
+        "name": "Big McRoyale Large",
+        "price": "38.17"
+    },
+    "13": {
+        "name": "Big McRoyale Medium ",
+        "price": "35"
+    },
+    "14": {
+        "name": "Big McRoyale Sandwich",
+        "price": "24.09"
+    },
+    "15": {
+        "name": "Quarter Pounder with Cheese Large",
+        "price": "33.18"
+    },
+    "16": {
+        "name": "Quarter Pounder with Cheese Medium ",
+        "price": "30"
+    },
+    "17": {
+        "name": "Quarter Pounder with Cheese Sandwich",
+        "price": "20.23"
+    },
+    "18": {
+        "name": "McArabia Kofta Large",
+        "price": "34.08"
+    },
+    "19": {
+        "name": "McArabia Kofta Medium ",
+        "price": "30.91"
+    },
+    "20": {
+        "name": "McArabia Kofta Sandwich",
+        "price": "21.36"
+    },
+    "21": {
+        "name": "Mega Mac Large",
+        "price": "41.81"
+    },
+    "22": {
+        "name": "Mega Mac Medium ",
+        "price": "38.63"
+    },
+    "23": {
+        "name": "Mega Mac Sandwich",
+        "price": "27.73"
+    },
+    "24": {
+        "name": "Double Big Tasty Large",
+        "price": "46.36"
+    },
+    "25": {
+        "name": "Double Big Tasty Medium ",
+        "price": "43.18"
+    },
+    "26": {
+        "name": "Double Big Tasty Sandwich",
+        "price": "33.64"
+    },
+    "27": {
+        "name": "Double McRoya Large",
+        "price": "44.99"
+    },
+    "28": {
+        "name": "Double McRoya Medium ",
+        "price": "41.81"
+    },
+    "29": {
+        "name": "Double McRoya Sandwich",
+        "price": "31.36"
+    },
+    "30": {
+        "name": "Double Quarter Pounder with Cheese Large",
+        "price": "42.51"
+    },
+    "31": {
+        "name": "Double Quarter Pounder with Cheese Medium ",
+        "price": "39.33"
+    },
+    "32": {
+        "name": "Double Quarter Pounder with Cheese Sandwich",
+        "price": "29.55"
+    },
+    "33": {
+        "name": "Double Beef Burger Large",
+        "price": "25.45"
+    },
+    "34": {
+        "name": "Double Beef Burger Medium ",
+        "price": "22.27"
+    },
+    "35": {
+        "name": "Double Beef Burger Sandwich",
+        "price": "10"
+    },
+    "36": {
+        "name": "Double Beef Burger Large",
+        "price": "25.45"
+    },
+    "37": {
+        "name": "Double Beef Burger Medium ",
+        "price": "22.27"
+    },
+    "38": {
+        "name": "Double Beef Burger Sandwich",
+        "price": "10"
+    },
+    "39": {
+        "name": "Double Cheese Burger Large",
+        "price": "26.82"
+    },
+    "40": {
+        "name": "Double Cheese Burger Medium ",
+        "price": "23.64"
+    },
+    "41": {
+        "name": "Double Cheese Burger Sandwich",
+        "price": "13.4"
+    },
+    "42": {
+        "name": "Little Tasty Large",
+        "price": "27.72"
+    },
+    "43": {
+        "name": "Little Tasty Medium ",
+        "price": "24.54"
+    },
+    "44": {
+        "name": "Little Tasty Sandwich",
+        "price": "10"
+    },
+    "45": {
+        "name": "McChicken Large",
+        "price": "29.09"
+    },
+    "46": {
+        "name": "McChicken Medium ",
+        "price": "25.91"
+    },
+    "47": {
+        "name": "McChicken Sandwich",
+        "price": "18.18"
+    },
+    "48": {
+        "name": "Big Mac Chicken Large",
+        "price": "36.36"
+    },
+    "49": {
+        "name": "Big Mac Chicken Medium ",
+        "price": "33.18"
+    },
+    "50": {
+        "name": "Big Mac Chicken Sandwich",
+        "price": "23.18"
+    },
+    "51": {
+        "name": "Chicken Fillet Large",
+        "price": "36.82"
+    },
+    "52": {
+        "name": "Chicken Fillet Medium ",
+        "price": "33.64"
+    },
+    "53": {
+        "name": "Chicken Fillet Sandwich",
+        "price": "23.63"
+    },
+    "54": {
+        "name": "Strawberry Sundae",
+        "price": "6.36"
+    },
+    "54": {
+        "name": "Choclate Sundae",
+        "price": "6.36"
+    },
+    "54": {
+        "name": "Caramel Sundae",
+        "price": "6.36"
+    },
+
    }
