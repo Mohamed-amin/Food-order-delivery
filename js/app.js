@@ -345,10 +345,7 @@ function App(){
 }
 
 $( document ).ready(function() {
-    var app = new App();
-    // app.Render.drawMenu();
-    app.Render.drawCustomersList();
-    // console.log(app)
+ var app;
    
 
     $(".addNewOrder").on('click', function() {
@@ -405,9 +402,18 @@ $( document ).ready(function() {
     $("#restaurant").on('change',function(){
         var restaurantId = $(this).find(":selected").attr('id');
         // alert(restaurantId)
+        $(".sheet").html("")
+        $(".total").html("")
+
+        app = new App();
+        app.Order.orderList = {}
+
+        // app.Render.drawMenu();
         app.Menu.loadItems(restaurantId);
         app.Render.drawMenu();
-        $("#Menu").trigger("chosen:updated");
+        app.Render.drawCustomersList();
+        // console.log(app)
+        $("select").trigger("chosen:updated");
     });
             
 
